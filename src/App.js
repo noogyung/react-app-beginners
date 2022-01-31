@@ -3,40 +3,29 @@ import styles from "./App.module.css";
 import { useEffect, useState } from 'react';
 
 
-function Hello(){
-  useEffect(()=>{
-    console.log("Created");
-    return () => console.log("Destroyed");
-  },[]);
-  return <h1>Hello</h1>;
-}
-
 function App() {
-  const [counter, setValue] = useState(0);
-  const [keyword, setKeyword] = useState("");
-  const [showing, setShowing] = useState(false);
+  const [todo, setTodo] = useState("");
+  const [todos, setTodos] = useState([]);
 
-  const onClick = () => setValue((count) => count +1);
-  const onChange = (event) => setKeyword(event.target.value);
-  const onShowing = () => setShowing((prev) => !prev);
-
-  useEffect(()=>{
-    if(keyword !== "" && keyword.length >= 3){
-      console.log("Word" );
-    }
-  }, [keyword]);
-  useEffect(() => {
-  }, [counter]);
+  const onChange = (event) => setTodo(event.target.value);
+  const onSubmit = (event) =>{
+    event.preventDefault();
+    if (todo ===""){return};
+    setTodos((current) => [todo, ...current]);
+    setTodo("");    
+  }
 
   return (
     <div className="App">
-      <input value={keyword} onChange={onChange} type="text" placeholder='Search...'/>
-      <h1 className={styles.title}>{counter}</h1>
-      <button onClick={onClick}>Count Clicker</button>
-      <Button text={"Button"}/>
-
-      {showing ? <Hello/> : null}
-      <button onClick={onShowing}>{showing ? "hide" : "Show"}</button>
+      <h1>My Todos ({todos.length})</h1>
+      <form onSubmit={onSubmit}>
+        <input onChange={onChange} value={todo} type="text" placeholder='Write your to do'/>
+        <button>Save Todo</button>
+      </form>
+      <hr/>
+      <ul>
+        {todos.map((item, index)=> <li key={index}>{item}</li>)}
+      </ul>
     </div>
   );
 }
