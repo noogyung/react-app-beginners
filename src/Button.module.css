@@ -1,0 +1,16 @@
+.btn {
+  color: white;
+  background-color: black;
+  padding: 10px;
+  border: 0;
+  margin: 10px;
+}
+.btn:hover {
+  background-color: bisque;
+  color: darkslategrey;
+}
+
+.btn:active {
+  background-color: aquamarine;
+  color: darkslategrey;
+}
