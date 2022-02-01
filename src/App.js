@@ -1,33 +1,18 @@
-import Button from "./Button";
-import styles from "./App.module.css";
-import { useEffect, useState } from 'react';
-
+import Home from "./routes/Home";
+import Detail from './routes/Detail';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+} from "react-router-dom";
 
 function App() {
-  const [todo, setTodo] = useState("");
-  const [todos, setTodos] = useState([]);
-
-  const onChange = (event) => setTodo(event.target.value);
-  const onSubmit = (event) =>{
-    event.preventDefault();
-    if (todo ===""){return};
-    setTodos((current) => [todo, ...current]);
-    setTodo("");    
-  }
-
-  return (
-    <div className="App">
-      <h1>My Todos ({todos.length})</h1>
-      <form onSubmit={onSubmit}>
-        <input onChange={onChange} value={todo} type="text" placeholder='Write your to do'/>
-        <button>Save Todo</button>
-      </form>
-      <hr/>
-      <ul>
-        {todos.map((item, index)=> <li key={index}>{item}</li>)}
-      </ul>
-    </div>
-  );
+  return (<Router>
+    <Routes>
+        <Route path="/" element={<Home/>}/>
+        <Route path="/movie/:id" element={<Detail/>}/>
+    </Routes>
+  </Router>);
 }
 
 export default App;
